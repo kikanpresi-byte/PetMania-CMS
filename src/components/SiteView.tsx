@@ -40,10 +40,10 @@ export default function SiteView() {
         <div className="flex items-center gap-6">
           <span className="hidden md:block font-medium text-sm">{content.phoneNumber}</span>
           <div className="hidden sm:flex items-center gap-4">
-            <button className="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors">
+            <button className="w-10 h-10 rounded-xl bg-gradient-to-b from-slate-50 to-slate-100 border border-slate-200 shadow-[0_4px_0_0_#cbd5e1] active:translate-y-[4px] active:shadow-none text-slate-600 flex items-center justify-center hover:brightness-95 transition-all">
               <Heart size={18} />
             </button>
-            <a href="#contact" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-md">
+            <a href="#contact" className="bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-400 shadow-[0_4px_0_0_#1e3a8a] active:translate-y-[4px] active:shadow-none hover:brightness-110 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all">
               Book now
             </a>
           </div>
@@ -63,10 +63,10 @@ export default function SiteView() {
               {content.heroHeadline}
             </h1>
             <div className="flex flex-wrap items-center gap-4 mb-16">
-              <a href="#about" className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3.5 rounded-lg text-sm font-bold transition-all hover:shadow-lg inline-block">
+              <a href="#about" className="bg-gradient-to-b from-slate-800 to-slate-900 border border-slate-700 shadow-[0_4px_0_0_#0f172a] active:translate-y-[4px] active:shadow-none hover:brightness-110 text-white px-8 py-3.5 rounded-xl text-sm font-bold transition-all inline-block">
                 Learn more
               </a>
-              <a href="#contact" className="border-2 border-slate-200 text-slate-900 hover:border-slate-300 hover:bg-slate-50 px-8 py-3.5 rounded-lg text-sm font-bold transition-all hover:shadow-sm inline-block">
+              <a href="#contact" className="bg-gradient-to-b from-white to-slate-50 border-2 border-slate-200 shadow-[0_4px_0_0_#cbd5e1] active:translate-y-[4px] active:shadow-none hover:brightness-95 text-slate-900 px-8 py-3.5 rounded-xl text-sm font-bold transition-all inline-block">
                 Make a reservation
               </a>
             </div>
@@ -83,14 +83,14 @@ export default function SiteView() {
           </div>
 
           {/* Right Image Composition */}
-          <div className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-auto lg:h-[600px] z-0">
+          <div className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-auto lg:h-[600px] z-0 [perspective:1000px] group">
              {/* Abstract background shapes */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
              
              <img 
               src={content.heroImage} 
               alt="Happy dogs" 
-              className="w-full h-full object-cover object-center rounded-[2rem] shadow-2xl z-10 relative border-4 border-white"
+              className="w-full h-full object-cover object-center rounded-[2rem] shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.3),-10px_-10px_20px_-10px_rgba(255,255,255,1)] z-10 relative border-4 border-white transition-transform duration-700 group-hover:[transform:rotateX(5deg)_rotateY(-5deg)_scale(1.02)]"
             />
             
             {/* Decorative Elements */}
@@ -106,12 +106,12 @@ export default function SiteView() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             
             {/* Left Image */}
-            <div className="relative max-w-lg mx-auto lg:mx-0">
-               <div className="absolute inset-0 bg-[#f0f4f8] rounded-full transform -translate-x-8 translate-y-8 -z-10"></div>
+            <div className="relative max-w-lg mx-auto lg:mx-0 [perspective:1000px] group">
+               <div className="absolute inset-0 bg-[#f0f4f8] rounded-[3rem] transform -translate-x-8 translate-y-8 -z-10 shadow-inner"></div>
                <img 
                 src={content.promiseImage} 
                 alt="Woman holding dog" 
-                className="w-full h-auto rounded-[3rem] shadow-xl relative z-10"
+                className="w-full h-auto rounded-[3rem] shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.3),-10px_-10px_20px_-10px_rgba(255,255,255,1)] relative z-10 transition-transform duration-700 group-hover:[transform:rotateX(5deg)_rotateY(5deg)_scale(1.02)] border-4 border-white"
               />
               <svg className="absolute -top-8 -left-8 w-16 h-16 text-blue-600 z-20" viewBox="0 0 100 100" fill="currentColor">
                 <path d="M20,10 L30,40 L10,50 Z" />
@@ -131,7 +131,7 @@ export default function SiteView() {
               <div className="space-y-6 text-slate-600 leading-relaxed whitespace-pre-line text-lg mb-10">
                 {content.promiseText}
               </div>
-              <a href="#services" className="text-slate-900 font-bold border-b-2 border-slate-900 pb-1 hover:text-blue-600 hover:border-blue-600 transition-colors inline-flex items-center gap-2">
+              <a href="#services" className="bg-gradient-to-b from-white to-slate-50 border-2 border-slate-200 shadow-[0_4px_0_0_#cbd5e1] active:translate-y-[4px] active:shadow-none hover:brightness-95 text-slate-900 px-6 py-3 rounded-xl text-sm font-bold transition-all inline-flex items-center gap-2">
                 Learn more <ChevronRight size={16} />
               </a>
             </div>
@@ -156,15 +156,15 @@ export default function SiteView() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-8 max-w-5xl mx-auto">
             {content.services.map((service, index) => {
               // Cycle through subtle background colors for icons
-              const bgColors = ['bg-blue-50', 'bg-slate-100', 'bg-indigo-50', 'bg-sky-50', 'bg-blue-100', 'bg-slate-50'];
+              const bgColors = ['from-blue-100 to-blue-50', 'from-slate-100 to-white', 'from-indigo-100 to-indigo-50', 'from-sky-100 to-sky-50', 'from-blue-200 to-blue-100', 'from-slate-100 to-slate-50'];
               const bgColor = bgColors[index % bgColors.length];
               
               return (
-                <div key={service.id} className="flex flex-col items-center gap-4 group cursor-pointer">
-                  <div className={`w-24 h-24 rounded-[2rem] ${bgColor} flex items-center justify-center text-slate-700 group-hover:scale-105 group-hover:shadow-md transition-all duration-300`}>
+                <div key={service.id} className="flex flex-col items-center gap-4 group cursor-pointer p-6 bg-white rounded-[2rem] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] border-b-4 border-slate-200 hover:border-blue-400 hover:-translate-y-2 active:translate-y-0 active:border-b-0 active:mt-1 transition-all duration-300">
+                  <div className={`w-20 h-20 rounded-[1.5rem] bg-gradient-to-br ${bgColor} flex items-center justify-center text-blue-600 group-hover:scale-110 shadow-inner border border-white/60 transition-transform duration-300`}>
                     {iconMap[service.iconName] || <CheckCircle2 size={32} />}
                   </div>
-                  <span className="text-sm font-bold text-slate-700 group-hover:text-slate-900 transition-colors">
+                  <span className="text-sm font-bold text-slate-700 group-hover:text-blue-600 transition-colors text-center">
                     {service.title}
                   </span>
                 </div>
