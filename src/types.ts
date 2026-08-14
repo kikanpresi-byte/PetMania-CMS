@@ -1,3 +1,9 @@
+export interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+}
+
 export interface ServiceItem {
   id: string;
   title: string;
@@ -13,5 +19,6 @@ export interface SiteContent {
   promiseHeadline: string;
   promiseText: string;
   promiseImage: string;
+  navLinks: NavItem[];
   services: ServiceItem[];
 }

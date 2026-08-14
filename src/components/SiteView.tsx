@@ -29,11 +29,17 @@ export default function SiteView() {
           </div>
           
           {/* Desktop Nav */}
-          <ul className="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <li><a href="#services" className="text-blue-600 hover:text-blue-700 transition-colors">Services</a></li>
-            <li><a href="#about" className="hover:text-blue-600 transition-colors">About</a></li>
-            <li><a href="#contact" className="hover:text-blue-600 transition-colors">Locations</a></li>
-            <li><a href="#contact" className="hover:text-blue-600 transition-colors">Contact</a></li>
+          <ul className="hidden lg:flex items-center gap-4 text-sm font-bold text-slate-600">
+            {content.navLinks?.map((link) => (
+              <li key={link.id}>
+                <a 
+                  href={link.href} 
+                  className="block px-5 py-2.5 bg-gradient-to-b from-white to-slate-50 border border-slate-200 shadow-[0_4px_0_0_#cbd5e1] rounded-xl hover:-translate-y-1 active:translate-y-[4px] active:shadow-none transition-all text-slate-600 hover:text-blue-600"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 

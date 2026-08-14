@@ -5,7 +5,7 @@ import { LayoutDashboard, Save, RotateCcw, X, Edit3, Type, Image as ImageIcon } 
 export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   const { content, updateContent, resetContent } = useContent();
   const [formData, setFormData] = useState(content);
-  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'about' | 'services'>('hero');
+  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'about' | 'services' | 'navigation'>('hero');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -72,6 +72,14 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                 className={`w-full text-left px-4 py-2.5 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'services' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 <LayoutDashboard size={18} /> Services
+              </button>
+            </li>
+            <li>
+              <button 
+                onClick={() => setActiveTab('navigation')}
+                className={`w-full text-left px-4 py-2.5 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'navigation' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-slate-600 hover:bg-slate-50'}`}
+              >
+                <Type size={18} /> Menu Navigasi
               </button>
             </li>
           </ul>
@@ -245,6 +253,31 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                             const newServices = [...formData.services];
                             newServices[index].iconName = e.target.value;
                             setFormData(prev => ({ ...prev, services: newServices }));
+                          }}
+                          className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'navigation' && (
+              <div className="space-y-6">
+                <p className="text-sm text-slate-500 mb-2">Ubah teks menu navigasi atas.</p>
+                <div className="grid gap-4">
+                  {formData.navLinks.map((link, index) => (
+                    <div key={link.id} className="flex gap-4 items-start p-4 border border-slate-200 rounded-lg bg-slate-50">
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Menu {index + 1}</label>
+                        <input 
+                          type="text" 
+                          value={link.label} 
+                          onChange={(e) => {
+                            const newLinks = [...formData.navLinks];
+                            newLinks[index].label = e.target.value;
+                            setFormData(prev => ({ ...prev, navLinks: newLinks }));
                           }}
                           className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
                         />

@@ -10,6 +10,12 @@ const defaultContent: SiteContent = {
   promiseHeadline: "Happy pets,\nhappy humans",
   promiseText: "Come see how we're styling these final days of summer with bright palettes and pops of color that will dazzle your wardrobe year round.\n\nHow I'm styling these final days of summer with bright palettes and pops of color that will dazzle your wardrobe year round.",
   promiseImage: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600",
+  navLinks: [
+    { id: '1', label: 'Services', href: '#services' },
+    { id: '2', label: 'About', href: '#about' },
+    { id: '3', label: 'Locations', href: '#contact' },
+    { id: '4', label: 'Contact', href: '#contact' },
+  ],
   services: [
     { id: '1', title: 'Daycare', iconName: 'Sun' },
     { id: '2', title: 'Dog Walking', iconName: 'Dog' },
@@ -33,7 +39,13 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     const saved = localStorage.getItem('petmania-content');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Ensure that array properties exist, even for older localStorage values
+        return {
+          ...defaultContent,
+          ...parsed,
+          navLinks: parsed.navLinks || defaultContent.navLinks
+        };
       } catch (e) {
         console.error("Failed to parse saved content", e);
       }
