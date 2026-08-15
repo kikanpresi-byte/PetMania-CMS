@@ -2,6 +2,8 @@ import React from 'react';
 import { useContent } from '../store';
 import { Heart, Search, ShoppingBag, Menu, Star, CheckCircle2, ChevronRight, Dog, Cat, Scissors, Home, GraduationCap, Stethoscope, Sun } from 'lucide-react';
 
+import FloatingNav from './FloatingNav';
+
 const iconMap: Record<string, React.ReactNode> = {
   Sun: <Sun size={32} strokeWidth={1.5} />,
   Dog: <Dog size={32} strokeWidth={1.5} />,
@@ -17,31 +19,32 @@ export default function SiteView() {
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-sans overflow-x-hidden text-slate-800 selection:bg-blue-200">
       
-      {/* Navigation */}
-      <nav className="container mx-auto px-6 py-6 flex items-center justify-between relative z-10">
-        <div className="flex items-center gap-12">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white">
-              <Dog size={24} />
+      {/* Sticky Header Navigation */}
+      <header className="sticky top-0 w-full z-50 bg-[#f8f9fa] border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <nav className="container mx-auto px-6 py-4 flex items-center justify-between relative">
+          <div className="flex items-center gap-12 lg:gap-16">
+            {/* Logo */}
+            <div className="flex items-center gap-2 cursor-pointer">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                <Dog size={24} />
+              </div>
+              <span className="text-xl font-bold tracking-tight text-slate-900">{content.brandName}</span>
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900">{content.brandName}</span>
+            
+            {/* Desktop Nav - Clean Pill Style */}
+            <ul className="hidden lg:flex items-center gap-1.5 text-sm font-bold text-slate-600 bg-white/70 backdrop-blur-md px-2 py-1.5 rounded-2xl border border-slate-200/60 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+              {content.navLinks?.map((link) => (
+                <li key={link.id}>
+                  <a 
+                    href={link.href} 
+                    className="block px-5 py-2.5 rounded-xl hover:bg-white hover:text-blue-600 hover:shadow-sm active:scale-95 transition-all"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          
-          {/* Desktop Nav */}
-          <ul className="hidden lg:flex items-center gap-4 text-sm font-bold text-slate-600">
-            {content.navLinks?.map((link) => (
-              <li key={link.id}>
-                <a 
-                  href={link.href} 
-                  className="block px-5 py-2.5 bg-gradient-to-b from-white to-slate-50 border border-slate-200 shadow-[0_4px_0_0_#cbd5e1] rounded-xl hover:-translate-y-1 active:translate-y-[4px] active:shadow-none transition-all text-slate-600 hover:text-blue-600"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
 
         <div className="flex items-center gap-6">
           <span className="hidden md:block font-medium text-sm">{content.phoneNumber}</span>
@@ -57,7 +60,8 @@ export default function SiteView() {
             <Menu size={24} />
           </button>
         </div>
-      </nav>
+        </nav>
+      </header>
 
       {/* Hero Section */}
       <section id="home" className="container mx-auto px-6 pt-12 pb-24 lg:pt-20 lg:pb-32 relative">
@@ -182,12 +186,14 @@ export default function SiteView() {
       </section>
       
       {/* Decorative footer snippet */}
-      <footer id="contact" className="bg-slate-900 text-white py-12">
+      <footer id="contact" className="bg-slate-900 text-white py-12 pb-32 lg:pb-12">
         <div className="container mx-auto px-6 text-center text-sm text-slate-400">
           <p>&copy; {new Date().getFullYear()} {content.brandName}. All rights reserved.</p>
         </div>
       </footer>
 
+      {/* Modern Bubble Nav for Mobile/Tablet Only */}
+      <FloatingNav />
     </div>
   );
 }

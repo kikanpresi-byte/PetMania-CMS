@@ -11,10 +11,10 @@ const defaultContent: SiteContent = {
   promiseText: "Come see how we're styling these final days of summer with bright palettes and pops of color that will dazzle your wardrobe year round.\n\nHow I'm styling these final days of summer with bright palettes and pops of color that will dazzle your wardrobe year round.",
   promiseImage: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600",
   navLinks: [
+    { id: '0', label: 'Home', href: '#home' },
     { id: '1', label: 'Services', href: '#services' },
     { id: '2', label: 'About', href: '#about' },
-    { id: '3', label: 'Locations', href: '#contact' },
-    { id: '4', label: 'Contact', href: '#contact' },
+    { id: '3', label: 'Contact', href: '#contact' },
   ],
   services: [
     { id: '1', title: 'Daycare', iconName: 'Sun' },
