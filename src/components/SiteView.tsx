@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useContent } from '../store';
-import { Heart, Search, ShoppingBag, Menu, Star, CheckCircle2, ChevronRight, Dog, Cat, Scissors, Home, GraduationCap, Stethoscope, Sun } from 'lucide-react';
+import { Heart, Search, ShoppingBag, Menu, Star, CheckCircle2, ChevronRight, Dog, Cat, Scissors, Home, GraduationCap, Stethoscope, Sun, X } from 'lucide-react';
+import { ServiceItem } from '../types';
 
 import FloatingNav from './FloatingNav';
 
@@ -15,6 +16,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export default function SiteView() {
   const { content } = useContent();
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-sans overflow-x-hidden text-slate-800 selection:bg-blue-200">
@@ -170,7 +172,11 @@ export default function SiteView() {
               const bgColor = bgColors[index % bgColors.length];
               
               return (
-                <div key={service.id} className="flex flex-col items-center gap-4 group cursor-pointer p-6 bg-white rounded-[2rem] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] border-b-4 border-slate-200 hover:border-blue-400 hover:-translate-y-2 active:translate-y-0 active:border-b-0 active:mt-1 transition-all duration-300">
+                <div 
+                  key={service.id} 
+                  onClick={() => setSelectedService(service)}
+                  className="flex flex-col items-center gap-4 group cursor-pointer p-6 bg-white rounded-[2rem] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] border-b-4 border-slate-200 hover:border-blue-400 hover:-translate-y-2 active:translate-y-0 active:border-b-0 active:mt-1 transition-all duration-300"
+                >
                   <div className={`w-20 h-20 rounded-[1.5rem] bg-gradient-to-br ${bgColor} flex items-center justify-center text-blue-600 group-hover:scale-110 shadow-inner border border-white/60 transition-transform duration-300`}>
                     {iconMap[service.iconName] || <CheckCircle2 size={32} />}
                   </div>
@@ -184,6 +190,30 @@ export default function SiteView() {
 
         </div>
       </section>
+
+      {/* Locations Section */}
+      <section id="locations" className="py-24 bg-white relative">
+        <div className="container mx-auto px-6 max-w-5xl text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">
+            Visit Our Locations
+          </h2>
+          <p className="text-slate-600 mb-12 max-w-2xl mx-auto text-lg">
+            Find the nearest PetMania center. We have multiple facilities equipped with the best amenities for your furry friends.
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 text-left">
+            <div className="p-8 rounded-[2rem] bg-[#f8f9fa] border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Downtown Center</h3>
+              <p className="text-slate-600 mb-4">123 Pet Avenue, City Center, 10001</p>
+              <p className="text-sm font-medium text-blue-600">Mon - Sun: 8:00 AM - 8:00 PM</p>
+            </div>
+            <div className="p-8 rounded-[2rem] bg-[#f8f9fa] border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Westside Campus</h3>
+              <p className="text-slate-600 mb-4">456 Park Boulevard, Westside, 10002</p>
+              <p className="text-sm font-medium text-blue-600">Mon - Sat: 9:00 AM - 7:00 PM</p>
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* Decorative footer snippet */}
       <footer id="contact" className="bg-slate-900 text-white py-12 pb-32 lg:pb-12">
@@ -194,6 +224,41 @@ export default function SiteView() {
 
       {/* Modern Bubble Nav for Mobile/Tablet Only */}
       <FloatingNav />
+
+      {/* Selected Service Modal */}
+      {selectedService && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all duration-300">
+          <div 
+            className="bg-white rounded-[2rem] p-8 max-w-sm w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-b-4 border-slate-200 relative animate-in zoom-in-95 duration-200"
+          >
+            <button 
+              onClick={() => setSelectedService(null)} 
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition-colors"
+            >
+              <X size={20} strokeWidth={2.5} />
+            </button>
+            
+            <div className="w-20 h-20 rounded-[1.5rem] bg-gradient-to-br from-blue-100 to-cyan-50 flex items-center justify-center text-blue-600 mb-6 shadow-inner border border-white/60 mx-auto">
+              {iconMap[selectedService.iconName] || <CheckCircle2 size={32} />}
+            </div>
+            
+            <h3 className="text-2xl font-bold text-slate-900 text-center mb-4">
+              {selectedService.title}
+            </h3>
+            
+            <p className="text-slate-600 text-center leading-relaxed mb-8">
+              {selectedService.description || "Hubungi kami untuk informasi lebih detail tentang layanan ini."}
+            </p>
+            
+            <button 
+              onClick={() => setSelectedService(null)}
+              className="w-full bg-gradient-to-tr from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-4 rounded-2xl shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] transition-all active:scale-95"
+            >
+              Book Now
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

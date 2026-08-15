@@ -8,6 +8,7 @@ export interface ServiceItem {
   id: string;
   title: string;
   iconName: string;
+  description: string;
 }
 
 export interface SiteContent {

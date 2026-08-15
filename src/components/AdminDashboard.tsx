@@ -230,30 +230,45 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                 <p className="text-sm text-slate-500 mb-2">Edit the services offered. Icons use Lucide names (e.g., Sun, Dog, Scissors, Home, GraduationCap, Stethoscope).</p>
                 <div className="grid gap-4">
                   {formData.services.map((service, index) => (
-                    <div key={service.id} className="flex gap-4 items-start p-4 border border-slate-200 rounded-lg bg-slate-50">
-                      <div className="flex-1">
-                        <label className="block text-xs font-medium text-slate-700 mb-1">Service Title</label>
-                        <input 
-                          type="text" 
-                          value={service.title} 
-                          onChange={(e) => {
-                            const newServices = [...formData.services];
-                            newServices[index].title = e.target.value;
-                            setFormData(prev => ({ ...prev, services: newServices }));
-                          }}
-                          className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
-                        />
+                    <div key={service.id} className="flex flex-col gap-4 p-4 border border-slate-200 rounded-lg bg-slate-50">
+                      <div className="flex gap-4 items-start">
+                        <div className="flex-1">
+                          <label className="block text-xs font-medium text-slate-700 mb-1">Service Title</label>
+                          <input 
+                            type="text" 
+                            value={service.title} 
+                            onChange={(e) => {
+                              const newServices = [...formData.services];
+                              newServices[index].title = e.target.value;
+                              setFormData(prev => ({ ...prev, services: newServices }));
+                            }}
+                            className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <label className="block text-xs font-medium text-slate-700 mb-1">Icon Name</label>
+                          <input 
+                            type="text" 
+                            value={service.iconName} 
+                            onChange={(e) => {
+                              const newServices = [...formData.services];
+                              newServices[index].iconName = e.target.value;
+                              setFormData(prev => ({ ...prev, services: newServices }));
+                            }}
+                            className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
+                          />
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <label className="block text-xs font-medium text-slate-700 mb-1">Icon Name</label>
-                        <input 
-                          type="text" 
-                          value={service.iconName} 
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Description</label>
+                        <textarea 
+                          value={service.description || ''} 
                           onChange={(e) => {
                             const newServices = [...formData.services];
-                            newServices[index].iconName = e.target.value;
+                            newServices[index].description = e.target.value;
                             setFormData(prev => ({ ...prev, services: newServices }));
                           }}
+                          rows={2}
                           className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
                         />
                       </div>

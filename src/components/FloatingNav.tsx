@@ -20,13 +20,23 @@ export default function FloatingNav() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 3;
       let newActiveIndex = activeIndex;
+      let maxTop = -1;
 
       content.navLinks.forEach((link, index) => {
         const element = document.querySelector(link.href);
-        if (element && (element as HTMLElement).offsetTop <= scrollPosition) {
-          newActiveIndex = index;
+        if (element) {
+          const top = (element as HTMLElement).offsetTop;
+          if (top <= scrollPosition && top > maxTop) {
+            maxTop = top;
+            newActiveIndex = index;
+          }
         }
       });
+
+      // Special check: if scrolled to the very bottom of the document
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20) {
+        newActiveIndex = content.navLinks.length - 1;
+      }
 
       if (newActiveIndex !== activeIndex) {
         setActiveIndex(newActiveIndex);
