@@ -11,6 +11,13 @@ export interface ServiceItem {
   description: string;
 }
 
+export interface LocationItem {
+  id: string;
+  name: string;
+  address: string;
+  hours: string;
+}
+
 export interface SiteContent {
   brandName: string;
   phoneNumber: string;
@@ -20,6 +27,9 @@ export interface SiteContent {
   promiseHeadline: string;
   promiseText: string;
   promiseImage: string;
+  locationsHeadline: string;
+  locationsText: string;
+  locations: LocationItem[];
   navLinks: NavItem[];
   services: ServiceItem[];
 }

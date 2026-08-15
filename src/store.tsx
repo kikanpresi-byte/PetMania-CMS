@@ -10,11 +10,18 @@ const defaultContent: SiteContent = {
   promiseHeadline: "Happy pets,\nhappy humans",
   promiseText: "Come see how we're styling these final days of summer with bright palettes and pops of color that will dazzle your wardrobe year round.\n\nHow I'm styling these final days of summer with bright palettes and pops of color that will dazzle your wardrobe year round.",
   promiseImage: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600",
+  locationsHeadline: "Visit Our Locations",
+  locationsText: "Find the nearest PetMania center. We have multiple facilities equipped with the best amenities for your furry friends.",
+  locations: [
+    { id: '1', name: 'Downtown Center', address: '123 Pet Avenue, City Center, 10001', hours: 'Mon - Sun: 8:00 AM - 8:00 PM' },
+    { id: '2', name: 'Westside Campus', address: '456 Park Boulevard, Westside, 10002', hours: 'Mon - Sat: 9:00 AM - 7:00 PM' }
+  ],
   navLinks: [
     { id: '0', label: 'Home', href: '#home' },
     { id: '1', label: 'Services', href: '#services' },
     { id: '2', label: 'About', href: '#about' },
-    { id: '3', label: 'Contact', href: '#contact' },
+    { id: '3', label: 'Locations', href: '#locations' },
+    { id: '4', label: 'Contact', href: '#contact' },
   ],
   services: [
     { id: '1', title: 'Daycare', iconName: 'Sun', description: 'Lingkungan yang aman dan menyenangkan untuk hewan peliharaan Anda bermain dan bersosialisasi sepanjang hari. Dilengkapi dengan staf profesional.' },
@@ -73,6 +80,9 @@ export function ContentProvider({ children }: { children: ReactNode }) {
         return {
           ...defaultContent,
           ...parsed,
+          locationsHeadline: parsed.locationsHeadline || defaultContent.locationsHeadline,
+          locationsText: parsed.locationsText || defaultContent.locationsText,
+          locations: parsed.locations || defaultContent.locations,
           navLinks: finalNavLinks,
           services: mergedServices
         };

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useContent } from '../store';
-import { LayoutDashboard, Save, RotateCcw, X, Edit3, Type, Image as ImageIcon } from 'lucide-react';
+import { LayoutDashboard, Save, RotateCcw, X, Edit3, Type, Image as ImageIcon, MapPin } from 'lucide-react';
 
 export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   const { content, updateContent, resetContent } = useContent();
   const [formData, setFormData] = useState(content);
-  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'about' | 'services' | 'navigation'>('hero');
+  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'about' | 'services' | 'navigation' | 'locations'>('hero');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -80,6 +80,14 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                 className={`w-full text-left px-4 py-2.5 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'navigation' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 <Type size={18} /> Menu Navigasi
+              </button>
+            </li>
+            <li>
+              <button 
+                onClick={() => setActiveTab('locations')}
+                className={`w-full text-left px-4 py-2.5 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'locations' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-slate-600 hover:bg-slate-50'}`}
+              >
+                <MapPin size={18} /> Locations
               </button>
             </li>
           </ul>
@@ -293,6 +301,77 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                             const newLinks = [...formData.navLinks];
                             newLinks[index].label = e.target.value;
                             setFormData(prev => ({ ...prev, navLinks: newLinks }));
+                          }}
+                          className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'locations' && (
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Locations Headline</label>
+                  <input 
+                    type="text" 
+                    name="locationsHeadline" 
+                    value={formData.locationsHeadline || ''} 
+                    onChange={handleChange}
+                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Locations Description</label>
+                  <textarea 
+                    name="locationsText" 
+                    value={formData.locationsText || ''} 
+                    onChange={handleChange}
+                    rows={3}
+                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all"
+                  />
+                </div>
+                <div className="grid gap-4">
+                  <p className="text-sm font-medium text-slate-700 mt-2 border-b border-slate-200 pb-2">Location Items</p>
+                  {formData.locations?.map((loc, index) => (
+                    <div key={loc.id} className="flex flex-col gap-3 p-4 border border-slate-200 rounded-lg bg-slate-50">
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Location Name</label>
+                        <input 
+                          type="text" 
+                          value={loc.name} 
+                          onChange={(e) => {
+                            const newLocs = [...formData.locations];
+                            newLocs[index].name = e.target.value;
+                            setFormData(prev => ({ ...prev, locations: newLocs }));
+                          }}
+                          className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Address</label>
+                        <input 
+                          type="text" 
+                          value={loc.address} 
+                          onChange={(e) => {
+                            const newLocs = [...formData.locations];
+                            newLocs[index].address = e.target.value;
+                            setFormData(prev => ({ ...prev, locations: newLocs }));
+                          }}
+                          className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Operating Hours</label>
+                        <input 
+                          type="text" 
+                          value={loc.hours} 
+                          onChange={(e) => {
+                            const newLocs = [...formData.locations];
+                            newLocs[index].hours = e.target.value;
+                            setFormData(prev => ({ ...prev, locations: newLocs }));
                           }}
                           className="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-white"
                         />

@@ -3,8 +3,6 @@ import { useContent } from '../store';
 import { Heart, Search, ShoppingBag, Menu, Star, CheckCircle2, ChevronRight, Dog, Cat, Scissors, Home, GraduationCap, Stethoscope, Sun, X } from 'lucide-react';
 import { ServiceItem } from '../types';
 
-import FloatingNav from './FloatingNav';
-
 const iconMap: Record<string, React.ReactNode> = {
   Sun: <Sun size={32} strokeWidth={1.5} />,
   Dog: <Dog size={32} strokeWidth={1.5} />,
@@ -17,6 +15,7 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function SiteView() {
   const { content } = useContent();
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-sans overflow-x-hidden text-slate-800 selection:bg-blue-200">
@@ -58,11 +57,38 @@ export default function SiteView() {
               Book now
             </a>
           </div>
-          <button className="lg:hidden text-slate-900">
-            <Menu size={24} />
+          <button 
+            className="lg:hidden text-slate-900"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
         </nav>
+        
+        {/* Mobile Dropdown Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-lg animate-in slide-in-from-top-2 z-40">
+            <ul className="flex flex-col py-2">
+              {content.navLinks?.map((link) => (
+                <li key={link.id}>
+                  <a 
+                    href={link.href} 
+                    className="block px-6 py-4 text-base font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 active:bg-slate-100"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li className="px-6 py-4 border-t border-slate-100 sm:hidden">
+                 <a href="#contact" className="block text-center bg-blue-600 text-white px-6 py-3 rounded-xl text-sm font-bold active:scale-95 transition-transform" onClick={() => setIsMobileMenuOpen(false)}>
+                  Book now
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -195,35 +221,29 @@ export default function SiteView() {
       <section id="locations" className="py-24 bg-white relative">
         <div className="container mx-auto px-6 max-w-5xl text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">
-            Visit Our Locations
+            {content.locationsHeadline}
           </h2>
-          <p className="text-slate-600 mb-12 max-w-2xl mx-auto text-lg">
-            Find the nearest PetMania center. We have multiple facilities equipped with the best amenities for your furry friends.
+          <p className="text-slate-600 mb-12 max-w-2xl mx-auto text-lg whitespace-pre-wrap">
+            {content.locationsText}
           </p>
           <div className="grid md:grid-cols-2 gap-8 text-left">
-            <div className="p-8 rounded-[2rem] bg-[#f8f9fa] border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Downtown Center</h3>
-              <p className="text-slate-600 mb-4">123 Pet Avenue, City Center, 10001</p>
-              <p className="text-sm font-medium text-blue-600">Mon - Sun: 8:00 AM - 8:00 PM</p>
-            </div>
-            <div className="p-8 rounded-[2rem] bg-[#f8f9fa] border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Westside Campus</h3>
-              <p className="text-slate-600 mb-4">456 Park Boulevard, Westside, 10002</p>
-              <p className="text-sm font-medium text-blue-600">Mon - Sat: 9:00 AM - 7:00 PM</p>
-            </div>
+            {content.locations?.map((loc) => (
+              <div key={loc.id} className="p-8 rounded-[2rem] bg-[#f8f9fa] border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{loc.name}</h3>
+                <p className="text-slate-600 mb-4">{loc.address}</p>
+                <p className="text-sm font-medium text-blue-600">{loc.hours}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
       
       {/* Decorative footer snippet */}
-      <footer id="contact" className="bg-slate-900 text-white py-12 pb-32 lg:pb-12">
+      <footer id="contact" className="bg-slate-900 text-white py-12">
         <div className="container mx-auto px-6 text-center text-sm text-slate-400">
           <p>&copy; {new Date().getFullYear()} {content.brandName}. All rights reserved.</p>
         </div>
       </footer>
-
-      {/* Modern Bubble Nav for Mobile/Tablet Only */}
-      <FloatingNav />
 
       {/* Selected Service Modal */}
       {selectedService && (
